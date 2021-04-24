@@ -76,7 +76,7 @@ const secret = process.env.SECRET || 'makearealsecretlater';
 
 app.use(
 	session({
-		name              : 'cMoney',
+		name              : 'cryptotickers',
 		secret,
 		resave            : false,
 		saveUninitialized : true,
@@ -192,6 +192,7 @@ app.use((err, req, res, next) => {
 });
 
 //App route
-app.listen(3000, () => {
-	console.log('Serving on port 3000');
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+	console.log(`Serving on port ${port}`);
 });
