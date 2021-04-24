@@ -1,0 +1,103 @@
+<% layout('layouts/boilerplate') %> 
+<link rel="stylesheet" href="/stylesheets/stars.css">
+
+<div class="row d-flex justify-content-around align-items-center h-100">
+    <% for( let tic of ticker) { %> 
+        <div class="col-sm-6 col-md-4">
+            <div class="card text-center mb-3 mt-5">
+                <img src="" alt="" class="img-fluid">
+                <div class="card-body ">
+                    <h3 class="card-title "><%= tic.symbol %> </h3>
+                    <div class="d-flex justify-content-around">
+                        <h5 class="card-text text-left">$<%= tic.last.toFixed(2) %></h5>
+                        <h6 class="card-text text-right">$<%= tic.change.toFixed(2) %></h6>
+                    </div>
+                    <p class="card-text d-flex justify-content-around flex-md-wrap flex-lg-nowrap">
+                        <% if(tic.open){ %> 
+                        <small class="text-muted mx-2"> Open: $<%= tic.open.toFixed(2) %> </small> 
+                        <% } %> 
+                        <small class="text-muted mx-2"> Last Close: $<%= tic.close.toFixed(2) %> </small>
+                    </p>
+                    <% if(tic.datetime){ %> 
+                    <p class="d-flex justify-content-center flex-nowrap m-0 p-0">
+                        <bold class="text-muted" id="<%=tic._id %>_time"> Reported: <span class="text-info"><%= (tic.time) %> </span></bold> 
+                    </p>
+                    <% } else { %> 
+                        <p class="d-flex justify-content-center flex-nowrap m-0 p-0">
+                            <bold class="text-muted" id="<%=tic._id %>_time"> <span class="text-info">Market Error</span></bold> 
+                        </p>
+                        <% } %> 
+                    
+                </div>
+                <div class="card-footer text-muted d-flex align-items-center justify-content-between mt-0 exchange">
+                    <%= tic.exchange %>  
+                    <% if(tic.datetime){ %> 
+                    <small class="text-muted mx-2"><%= (tic.date) %> </small>
+                    <% } %> 
+                </div>
+                <% if( currentUser && tic.creator.equals(currentUser._id)){ %> 
+                <div class="card-footer d-flex border-top-0 align-items-center justify-content-around mt-0">
+                    
+                    <a type="button" id="editBtn" href="/investments/<%= tic._id %>/edit" class="btn btn-info btn-sm">Edit</a>
+                        <form action="/investments/<%= tic._id %>?_method=DELETE" method="POST" class="d-inline-flex justify-content-end ">
+                            <button class="btn btn-danger btn-sm" aria-label="Delete">Delete</button>
+                        </form>
+                        <a href="/investments/home" class="btn btn-success btn-sm">My investments</a>
+                </div>
+                <% } %> 
+                
+            </div>
+
+            <% if(!currentUser) {%> 
+                
+                <h3><a href="/login" class="text-success"> Login to leave a review</a></h3>
+                <p class="starability-result" data-rating="3">
+                  Rated: 3 stars
+                </p>
+                <% } %> 
+        </div>
+
+        <% } %> 
+        <% if(currentUser) {%> 
+        <aside class="col-6 mt-3">
+            <h3>Leave A Review</h3>
+            <form action="/investments/<%= ticker._id %>/reviews" method="PUT">
+            <div class="mb-0">  
+                <fieldset class="starability-basic">
+                    <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                    <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                    <label for="first-rate1" title="Terrible">1 star</label>
+                    <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                    <label for="first-rate2" title="Not good">2 stars</label>
+                    <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                    <label for="first-rate3" title="Average">3 stars</label>
+                    <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                    <label for="first-rate4" title="Very good">4 stars</label>
+                    <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                    <label for="first-rate5" title="Amazing">5 stars</label>
+                  </fieldset>
+            </div>
+            <div class="mb-3">
+                <label for="body" class="form-label"></label>
+                <textarea class="form-control text-muted" name="review[body]" id="body" cols="30" rows="5">Review Text</textarea>
+                <div class="valid-feedback">
+                    Looks Good!
+                </div>
+            </div>
+            <button disabled="disabled"class="btn btn-success">Submit</button>
+            </form>
+        </aside>
+        <% } %> 
+            
+            
+    </div>
+
+    <script type="text/javascript">
+        var ticker = '<%- JSON.stringify(ticker) %>'; 
+    </script>
+
+    <script src="/js/updateTics.js" type="text/javascript" id="updateScript" data-url="ticker">
+    </script>
+    
+    <!-- button to update card
+        <a href="/investments"  class="card-link btn btn-primary btn-small p-1 m-0 ">Update</a> -->

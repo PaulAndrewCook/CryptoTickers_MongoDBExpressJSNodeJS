@@ -1,0 +1,59 @@
+<% layout('layouts/boilerplate') %> 
+<link rel="stylesheet" href="/stylesheets/autocomplete.css">
+<div class="row text-center ">
+    <div class="col-sm-8 col-md-6 mx-auto">
+        <h1 class="my-4 mx-auto">New Investment</h1>
+        <h3>Common Cryptocurrencies</h3>
+        <div class="flex-col-6 d-flex flex-wrap justify-content-between comCoin">
+      </div> 
+        <form action="/investments/new" method="POST" class="validate-form" autocomplete="off" novalidate>
+            <div class="mb-4 mt-3">
+                    <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <label class="input-group-text" for="exchange" >Exchanges</label>
+                            </div>
+                            <select class="custom-select" name="currency[exchange]" id="exchange" option = required onchange="loadSymbols()">
+                                <option selected>Select First...</option>
+                                <%for(let mar of markets) {%> 
+                              <option value=<%= mar.exchange%> ><%= mar.exchange %></option>
+                              <%} %> 
+                            </select>
+                    </div>
+                          <div class="valid-feedback">
+                            Looks Good!
+                          </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="currency">Crypto Currencies</label>
+                        </div>
+                            <input type="text" class="custom-select bg-white" autocomplete="off" name="currency[symbol]" id="currency" required placeholder="Type to choose from list...">
+                    </div>
+                        <div class="valid-feedback">
+                            Looks Good!
+                        </div> 
+
+                    <input type="hidden" name="currency[crypto]" id="crypto" value=true> 
+
+                <div class="mt-2">
+                    <button class="btn btn-success ">Add Currency</button>
+                </div>
+            </div>
+       
+            
+        </form>
+        
+    </div>
+</div>
+<div class="collapse">
+    <select type="hidden" class="custom-select" id="hideCurr" >
+        <%for(let mar of markets) {%> 
+      <option value=<%= mar.exchange%>><%= mar.symbols %></option>
+      <%} %> 
+    </select>
+</div>
+
+<script src="/js/autocompleteForm.js" type="text/javascript"></script>
+<script src="/js/autoLoadCoin.js" type="text/javascript"></script>
+
+
