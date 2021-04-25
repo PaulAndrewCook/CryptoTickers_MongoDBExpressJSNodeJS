@@ -156,6 +156,7 @@ app.get('/', (req, res) => {
 
 //error handling wrapper for each of the routes
 app.all('*', (req, res, next) => {
+	console.log('req in error handle', req);
 	next(new AppError('Page not found', 404));
 });
 

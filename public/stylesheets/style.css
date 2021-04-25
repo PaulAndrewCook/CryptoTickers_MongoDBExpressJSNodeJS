@@ -21,6 +21,9 @@ body{
     z-index: 5;
     position: relative;
 }
+.hidden {
+    visibility: hidden;
+}
 
 button.navbar-toggler:focus {     
      outline: 1px none; 
