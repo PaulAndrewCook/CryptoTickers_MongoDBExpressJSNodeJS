@@ -72,8 +72,9 @@ function getTicData() {
 
 	return Promise.all([
 		//axios puts everything into a string - for nested objects we need to use URLSearchParams.
+		//modified axios to hit relative route instead of 'http://localhost:3000/investments/updateTics'
 		axios
-			.post('http://localhost:3000/investments/updateTics', params)
+			.post('/investments/updateTics', params)
 			.then((tics) => {
 				const t = [];
 				for (let i = 0; i < tics.data.length; i++) {
