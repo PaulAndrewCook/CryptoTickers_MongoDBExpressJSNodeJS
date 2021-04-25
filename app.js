@@ -18,11 +18,6 @@ const LocalStrategy = require('passport-local'); //email and password login on l
 const User = require('./models/user'); //user model
 const mongoSanitize = require('express-mongo-sanitize'); //package to block mongo injection secuirty issues
 const helmet = require('helmet');
-
-//setup the express app
-const app = express();
-
-//Route Paths
 const investmentRoutes = require('./routes/investments'); //seperate out the routes to a different file
 const userRoutes = require('./routes/user'); //seperate out the User routes to a different file
 
@@ -40,6 +35,8 @@ db.on('error', console.error.bind(console, 'connection error'));
 db.once('open', () => {
 	console.log('Database connected');
 });
+//setup the express app
+const app = express();
 
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
@@ -48,29 +45,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true })); //parse body
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public'))); //Public Directory - Error - validate forms says good when blocked
-
-// const store = new MongoDBStore({
-// 	url        : dbUrl,
-// 	secret     : 'makearealsecretlater',
-// 	touchAfter : 24 * 3600
-// });
-// store.on('error', function(e) {
-// 	console.log('error in database store', e);
-// });
-// //cookies and sessions ->
-// const sessionOptions = {
-// 	name              : 'cMoney',
-// 	secret            : 'makearealsecretlater',
-// 	resave            : false,
-// 	saveUninitialized : true,
-// 	cookie            : {
-// 		httpOnly : true,
-// 		// secure: true, //use only https, localhost is not https.
-// 		expires  : Date.now() + 1000 * 60 * 60 * 24 * 7,
-// 		maxAge   : 1000 * 60 * 60 * 24 * 7
-// 	}
-// };
-// app.use(session(sessionOptions));
 
 const secret = process.env.SECRET || 'makearealsecretlater';
 
@@ -171,12 +145,13 @@ app.use((req, res, next) => {
 	next();
 });
 
+//Route Paths
 app.use('/investments', investmentRoutes); //use the investments routes
 app.use('/', userRoutes); //use the user routes
 // app.use('/crypto', cryptoRoutes); //use the crypto routes
 
 app.get('/', (req, res) => {
-	res.render('index');
+	res.render('home');
 });
 
 //error handling wrapper for each of the routes

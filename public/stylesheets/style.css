@@ -1,31 +1,7 @@
-.static.btn::before {
-    color:white;
-    content:"Tickers: Static";
-}
-.static.btn:hover::before {
-    content:" "
-}
-.static.btn:hover::after {
-    color:green;
-    content:"Go Live"
-}
-.searching.btn::before {
-    content:"Updating..."
-}
-.searching.btn:hover::after {
-    color:red;
-    content:"Stop"
-}
-.live.btn::before {
-    color:white;
-    content:"Live";
-}
-.live.btn:hover::before {
-    content:" "
-}
-.live.btn:hover::after {
-    color:red;
-    content:"Stop"
+
+body{
+    text-shadow:0 0.05rem 0.1rem rgba(0,0,0,0.1);    
+    box-shadow: inset 0 0 5rem rgba(0,0,0,0.5);    
 }
 
 .card .stretched-link::after {
@@ -64,15 +40,64 @@ button.navbar-toggler:focus {
     border-bottom-color: gray ;
 }
 
-body{
-    text-shadow:0 0.05rem 0.1rem rgba(0,0,0,0.1);    
-    box-shadow: inset 0 0 5rem rgba(0,0,0,0.5);    
+@media (max-width: 600px) {
+    .navbar-brand {
+        left: 25%;
+        top: 0.3em;
+        display: block;
+        position: absolute;
+        text-align: center;
+        font-size: 1.5rem;
+    }
+    .navbar-nav {
+        margin-top: 0.5em;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    #autoUpdate {
+        margin-left: -1em;
+    }
+    #autoUpdate.live {
+        margin-left: 1em;
+    }
+}
+@media (min-width: 600px) and (max-width: 992px) {
+    .navbar-brand {
+        left: 35%;
+        top: 0.3em;
+        display: block;
+        position: absolute;
+        text-align: center;
+        font-size: 1.5rem;
+    }
+    #navDivL {
+        margin-top: 0.5em;
+        flex-direction: row;
+        width: 40%;
+        justify-content: space-around;
+    }
+    #navDivR {
+        margin-top: -2.5em;
+        flex-direction: row;
+        width: 40%;
+        justify-content: space-around;
+    }
+    #autoUpdate {
+        margin-left: -1em;
+    }
+    #autoUpdate.live {
+        margin-left: 1em;
+    }
+}
+@media (min-width: 993px) {
+    .navbar-brand {
+        transform: translateX(-50%);
+        left: 50%;
+        top: 0.3em;
+        position: absolute;
+        text-align: center;
+        font-size: 1.5rem;
+    }
 }
 
-.gain{
-    color:green
-}
 
-.loss{
-    color:red
-}

@@ -1,53 +1,64 @@
 <% if(!pageName){var pageName = 'welcome'} %> 
 <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Investments</a>
-    <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+  <div class="container-fluid w-100">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbarNavs" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon "></span>
     </button>
-
-    <div class="collapse navbar-collapse" id="navbarNavs">
-      <div class="navbar-nav navbarMain" id="navDiv">
-        <a   <% if(pageName == 'welcome'){%> class ="nav-link active" <%} else { %>class ="nav-link" <%}%>    href="/investments">Welcome</a>
-        <a  <% if(pageName == 'home'){%> class ="nav-link active" <%} else { %>class ="nav-link" <%}%> href="/investments/home">Home</a>
-        <a <% if(pageName == 'new'){%> class ="nav-link active" <%} else { %> class ="nav-link" <%}%> href="/investments/new">New</a>
-      </div>
-
-
-      <div class="navbar-nav ml-md-auto">
-        <div class="btn-group-toggle btn-sm pl-0" data-toggle="buttons">
-          <% if(updateTics == true){ %> 
-          <label class="btn btn-dark bg-warning searching pt-1" id="autoUpdate">
-            <input type="checkbox" autocomplete="off" >
-          </label>
-          <% } %> 
+    
+        <div class="collapse navbar-collapse navbarNavs" id="navbarNavsL">
+          <div class="navbar-nav mr-auto navbarMain" id="navDivL">
+            <a   <% if(pageName == 'welcome'){%> class ="nav-link active" <%} else { %>class ="nav-link" <%}%>    href="/investments">Welcome</a>
+            <a  <% if(pageName == 'home'){%> class ="nav-link active" <%} else { %>class ="nav-link" <%}%> href="/investments/home">Home</a>
+            <a <% if(pageName == 'new'){%> class ="nav-link active" <%} else { %> class ="nav-link" <%}%> href="/investments/new">New</a>
+          </div>
         </div>
-        
-        <% if(!currentUser){%> 
-          <a class="nav-link" href="/login">Login</a>
-          <a class="nav-link" href="/register">Register</a>
-          <% } else { %> 
-            <a class="nav-link" href="/investments"><%= currentUser.username %> </a>
-            <a class="nav-link" href="/logout">Logout</a>
-            
-            <% } %> 
-        </div>
-      </div>
+    
       
-    </div>
-  
-  </div>
+        <div class="mx-auto p-0"> 
+          <% if(pageName === 'welcome') {%> 
+            <a class="navbar-brand" href="/" >Cryptocurrency Tickers</a>
+            <% } else { %> 
+              <a class="navbar-brand" href="/" > Custom Tickers</a>
+              <% } %> 
+        </div>
+          
+            <div class="collapse navbar-collapse navbarNavs pb-0 mb-0" id="navbarNavsR">
+              <div class="navbar-nav ml-auto" id="navDivR">
+                <div class="btn-group-toggle btn-sm pl-0" data-toggle="buttons">
+                  <% if(updateTics == true){ %> 
+                    <label class="btn btn-dark bg-warning searching pt-1" id="autoUpdate">
+                      <input type="checkbox" autocomplete="off" >
+                    </label>
+                    <% } %> 
+                </div>
+                      
+                <% if(!currentUser){%> 
+                  <a class="nav-link" href="/login">Login</a>
+                  <a class="nav-link" href="/register">Register</a>
+                  <% } else { %> 
+                    <a class="nav-link" href="/investments"><%= currentUser.username %> </a>
+                    <a class="nav-link" href="/logout">Logout</a>
+                    
+                    <% } %> 
+              </div>
+            </div>
 
+
+
+</div>
+            
+          
 </nav>
-
+      
 <%  
 function classActive(linkName){
-if(pageName == linkName){
-  console.log(`${linkName} active`);
-  return "nav-link active"          
-} else{
-  console.log(`${linkName} not active`);
-  return "nav-link"
-}
+  if(pageName == linkName){
+    console.log(`${linkName} active`);
+    return "nav-link active"          
+  } else{
+    console.log(`${linkName} not active`);
+    return "nav-link"
+  }
 }
 %>
+      

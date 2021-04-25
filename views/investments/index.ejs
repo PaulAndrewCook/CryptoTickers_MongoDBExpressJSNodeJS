@@ -2,17 +2,6 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ccxt@1.43.74/dist/ccxt.browser.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/luxon@1.26.0/build/global/luxon.min.js" integrity="sha256-4sbTzmCCW9LGrIh5OsN8V5Pfdad1F1MwhLAOyXKnsE0=" crossorigin="anonymous"></script>
-<% if(pageName === 'welcome') {%> 
-<div class="text-center mt-2">
-    <h1 >Cryptocurrency Tickers</h1>
-    <h3 >Static & Dynamic Values</h3>
-    <h5 >Add, Customize, and Profit From Your Own</h5>
-</div>
-<% } else { %> 
-    <div class="text-center mt-2">
-    <h2 > Custom Cryptocurrency Tickers</h2>
-    <% } %> 
-</div>
 <div class="row d-flex justify-content-around mt-1 mt-sm-3">
     <% if(typeof(ticker) != undefined && ticker.length > 0) {%> 
         <% for( let tic of ticker) { %> 
@@ -72,16 +61,17 @@
                                                     <div class="card-body">
                                                         <h3 class="card-title">No Tickers To Load</h3>
                                                         <h5 class="card-text">You don't have any personalize tickers, yet.</h5>
-                                                        <div class="row mt-4">
+                                                        <div class="d-flex flex-row mt-4 justif-content-around">
                                                             <div class="col-sm-6">
-                                                                <a type="button" class="btn btn-info" type="submit" href="/investments/new">Make Your Own</a>
+                                                                <a type="button" class="btn btn-info btn-lg" type="submit" href="/investments/new">Make Your Own</a>
                                                             </div>
                                                             
                                                             <div class="col-sm-6">
                                                                 <form action="/investments/home"  method="POST">
                                                                     <input type="hidden" name="loadDefault" id="loadDefault" value=true> 
-                                                                    <button class="btn btn-primary" aria-label="resubmit">Load Default</button>
+                                                                    <button class="btn btn-primary btn-lg" aria-label="resubmit">Load Default</button>
                                                                 </form>
+                                                                <br>
                                                             </div>
 
                                                         </div>

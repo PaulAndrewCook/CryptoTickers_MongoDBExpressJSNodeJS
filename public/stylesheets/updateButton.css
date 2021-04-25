@@ -1,0 +1,37 @@
+.static.btn::before {
+    color:white;
+    content:"Tickers: Static";
+}
+.static.btn:hover::before {
+    content:" "
+}
+.static.btn:hover::after {
+    color:green;
+    content:"Go Live"
+}
+.searching.btn::before {
+    content:"Updating..."
+}
+.searching.btn:hover::after {
+    color:red;
+    content:"Stop"
+}
+.live.btn::before {
+    color:white;
+    content:"Live";
+}
+.live.btn:hover::before {
+    content:" "
+}
+.live.btn:hover::after {
+    color:red;
+    content:"Stop"
+}
+
+.gain{
+    color:green
+}
+
+.loss{
+    color:red
+}

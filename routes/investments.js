@@ -1,20 +1,17 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true }); //call express router
 const wrapAsync = require('../utils/catchAsync'); //call the async wrapper to catch all errors
-const { isLoggedIn, isAuthor, validateInput, isAdmin, pathName } = require('../middleware'); //middleware that checks to see if user is logged in
+const { isLoggedIn, isAuthor, validateInput, isAdmin } = require('../middleware'); //middleware that checks to see if user is logged in
 const investments = require('../controllers/investments'); //call the investment controller
 
 //Welcome page with set tickers
-router.get('/', pathName, wrapAsync(investments.index));
+router.get('/', wrapAsync(investments.index));
 
 //Route for updating the tic data
 router.post('/updateTics', wrapAsync(investments.updateTics));
 
 //Personalized investments
-router
-	.route('/home')
-	.get(isLoggedIn, pathName, wrapAsync(investments.home))
-	.post(isLoggedIn, pathName, wrapAsync(investments.defaultHome));
+router.route('/home').get(isLoggedIn, wrapAsync(investments.home)).post(isLoggedIn, wrapAsync(investments.defaultHome));
 
 //Delete and load market symbols for
 router.get('/markets', isLoggedIn, isAdmin, wrapAsync(investments.markets));

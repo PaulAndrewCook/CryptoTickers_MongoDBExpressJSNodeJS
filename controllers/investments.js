@@ -37,8 +37,15 @@ module.exports.home = async (req, res) => {
 	const userID = req.user._id;
 	const ticker = await Ticker.find({ creator: userID });
 
+	var k;
 	const pageName = 'home';
-	updateTics = true;
+	for (let tic of ticker) {
+		if (tic != null) {
+			k++;
+		}
+	}
+	updateTics = k > 0 ? true : false;
+	// updateTics = true;
 	res.render('investments/index', { ticker, updateTics, pageName });
 };
 
