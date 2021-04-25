@@ -123,7 +123,6 @@ async function domUpdate(tickers) {
 }
 
 function updateBtn() {
-	console.log('update call start', status, update.classList);
 	if (status === 'live') {
 		update.classList.remove('bg-warning', 'searching');
 		update.classList.add('live', 'bg-success');
@@ -134,7 +133,6 @@ function updateBtn() {
 		update.classList.remove('bg-success', 'live', 'bg-warning', 'searching');
 		update.classList.add('static');
 	}
-	console.log('update call end', status, update.classList);
 }
 
 function updateClr(tic) {
