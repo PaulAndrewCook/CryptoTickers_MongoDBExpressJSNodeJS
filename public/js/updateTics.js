@@ -113,13 +113,14 @@ async function domUpdate(tickers) {
 			const last = document.getElementById(`${tic._id}_last`);
 			const change = document.getElementById(`${tic._id}_change`);
 			const time = document.getElementById(`${tic._id}_time`);
+			const date = document.getElementById(`${tic._id}_date`);
 			last.innerText = `$${tic.last.toFixed(2)}`;
-			change.innerText = `$${tic.change.toFixed(2)}`;
-			const localTime = new Date(tic.datetime);
+			change.innerHTML = `<small class="text-muted"> change: </small>$${tic.change.toFixed(2)}`;
 			let dt = DateTime.fromISO(tic.datetime);
 			let nt = dt.toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET);
-			console.log('localTime', dt, nt);
+			let cldt = dt.toLocaleString(DateTime.DATE_MED);
 
+			date.innerText = cldt;
 			time.innerHTML = `Reported: <span class="text-info"> ${nt} </span>`;
 			// time.innerHTML = `Reported: <span class="text-info"> ${tic.time} </span>`;
 
@@ -149,7 +150,7 @@ function updateBtn() {
 
 //changes the color of the latest price
 function updateClr(tic) {
-	const value = parseFloat(tic.innerHTML.replace(/\$/g, ''));
+	const value = parseFloat(tic.innerText.replace(/.*\$/g, ''));
 	if (value > 0) {
 		tic.classList.remove('loss');
 		tic.classList.add('gain');

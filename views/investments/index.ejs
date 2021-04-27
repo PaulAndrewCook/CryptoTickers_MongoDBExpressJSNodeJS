@@ -41,7 +41,7 @@
                                     <div class="card-footer text-muted d-flex align-items-center justify-content-between mt-0 exchange">
                                         <%= tic.exchange %>  
                                         <% if(tic.datetime){ %> 
-                                            <small class="text-muted mx-2"><%= (tic.date) %> </small>
+                                            <small class="text-muted mx-2" id="<%=tic._id %>_date"><%= (tic.date) %> </small>
                                             <% } %> 
                                             <% if(currentUser && tic.creator.equals(currentUser._id)){%> 
                                                 <a type="button" id="editBtn" href="/investments/<%= tic._id %>/edit" class="btn text-warning btn-sm">Edit</a>
@@ -84,12 +84,9 @@
                                         
                                        
                                         <% if(ticker.length > 0) {%> 
-                                        <!-- <script src="luxon.js"></script> -->
-
                                         <script type="text/javascript">
                                             var ticker = '<%- JSON.stringify(ticker) %>'; 
                                             var DateTime = luxon.DateTime;
-                                            console.log('datetime in index', DateTime)
                                         </script>                                      
 
                                         <script src="/js/updateTics.js" type="text/javascript" id="updateScript" data-url="ticker">

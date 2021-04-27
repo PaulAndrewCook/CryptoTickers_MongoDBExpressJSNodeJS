@@ -108,18 +108,9 @@ module.exports.updateTickers = async (ticker) => {
 						tickers[i].change = 0.0;
 					}
 				}
+				//This instance of dateTime returns server time (UTC), we use client time by running this process in the DOM
 				let { datetime } = tickers[i];
-				// const lt = new Date();
-				// console.log('local data?', lt, lt.toString());
-				// let newoff = DateTime.local();
-				// let offset = -(new Date().getTimezoneOffset() / 60);
 				let dt = DateTime.fromISO(datetime);
-				// const tme = dt.plus({ minutes: newoff });
-				// console.log('time into offset', offset, 'new offset', newoff);
-				// console.log('time into dom', dt);
-				// console.log('time into readable offset', tme.toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET));
-				// console.log('time into readable no offset', dt.toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET));
-
 				let timeMerge = {
 					time : dt.toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET),
 					date : dt.toLocaleString(DateTime.DATE_MED)
