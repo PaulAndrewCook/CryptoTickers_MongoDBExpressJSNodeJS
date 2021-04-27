@@ -84,9 +84,13 @@
                                         
                                        
                                         <% if(ticker.length > 0) {%> 
+                                        <!-- <script src="luxon.js"></script> -->
+
                                         <script type="text/javascript">
                                             var ticker = '<%- JSON.stringify(ticker) %>'; 
-                                        </script>
+                                            var DateTime = luxon.DateTime;
+                                            console.log('datetime in index', DateTime)
+                                        </script>                                      
 
                                         <script src="/js/updateTics.js" type="text/javascript" id="updateScript" data-url="ticker">
                                         </script>
