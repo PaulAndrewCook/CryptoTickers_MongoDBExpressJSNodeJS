@@ -5,6 +5,7 @@ const User = require('./models/user'); // user Model
 const { Update, getTics, updateTickers, makeTics } = require('./public/js/ticDataFetch'); //js functions for updating tics
 const investments = require('./controllers/investments'); //call the investment controller
 
+//check to see if user is logged in
 module.exports.isLoggedIn = (req, res, next) => {
 	if (!req.isAuthenticated()) {
 		req.session.returnTo = req.originalUrl;
@@ -14,6 +15,7 @@ module.exports.isLoggedIn = (req, res, next) => {
 	next();
 };
 
+//make sure form data is valid data
 module.exports.validateInput = (req, res, next) => {
 	const { error } = investmentsSchema.validate(req.body);
 	if (error) {
@@ -24,6 +26,7 @@ module.exports.validateInput = (req, res, next) => {
 	}
 };
 
+//check to see if user created the tickers being displayed
 module.exports.isAuthor = async (req, res, next) => {
 	const { id } = req.params;
 	const userId = req.user._id;
@@ -35,6 +38,7 @@ module.exports.isAuthor = async (req, res, next) => {
 	next();
 };
 
+//check to see if user is an admin
 module.exports.isAdmin = async (req, res, next) => {
 	const { _id } = req.user;
 	const user = await User.findById(_id);
@@ -45,11 +49,15 @@ module.exports.isAdmin = async (req, res, next) => {
 	}
 	next();
 };
+
+//trys to get path of route
+//currently not in use
 module.exports.pathName = async (req, res, next) => {
 	const pathName = req.path.replace(/\//g, 'status');
 	next();
 };
 
+//Original fn to test connection from Node
 module.exports.bgUpdate = async (req, res, next) => {
 	Update(`Tesing connection from middleware!`);
 	try {
@@ -68,7 +76,3 @@ module.exports.bgUpdate = async (req, res, next) => {
 	}
 	next();
 };
-
-// const tickers = await getTics();
-// const ticker = await updateTickers(tickers);
-// res.locals.currentTickers = ticker;

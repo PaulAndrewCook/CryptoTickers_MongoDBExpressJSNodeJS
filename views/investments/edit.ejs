@@ -3,9 +3,9 @@
 <div class="row text-center ">
     <div class="col-sm-8 col-md-6 mx-auto">
       <div>
-        <h1 class="my-4 mx-auto">Modify Investment</h1>
-        <h3>Common Cryptocurrencies</h3>
-        <div class="flex-col-6 d-flex flex-wrap justify-content-between comCoin">
+        <h1 class="my-4 mx-auto text-warning">Pivot</h1>
+        <h3 class="text-warning" >Common Cryptocurrencies</h3>
+        <div class="flex-col-6 d-flex flex-wrap justify-content-between comCoin text-warning">
         </div>
         <form action="/investments/<%= ticker._id %>?_method=PUT" method="POST" class="validate-form" autocomplete="off" novalidate>
             <div class="mb-4 mt-3">
@@ -37,7 +37,7 @@
                     <input type="hidden" name="currency[crypto]" id="crypto" value=true> 
 
                 <div class="mt-2">
-                    <button class="btn btn-success ">Add Currency</button>
+                    <button class="btn btn-outline-warning ">Modify Ticker</button>
                 </div>
             </div>
        

@@ -4,9 +4,9 @@
 <div class="row d-flex justify-content-around align-items-center h-100">
     <% for( let tic of ticker) { %> 
         <div class="col-sm-6 col-md-4">
-            <div class="card text-center mb-3 mt-5">
+            <div class="card text-center border-warning text-warning mb-3 mt-5">
                 <img src="" alt="" class="img-fluid">
-                <div class="card-body ">
+                <div class="card-body pb-1">
                     <h3 class="card-title "><%= tic.symbol %> </h3>
                     <div class="d-flex justify-content-around">
                         <h5 class="card-text text-left">$<%= tic.last.toFixed(2) %></h5>
@@ -38,11 +38,11 @@
                 <% if( currentUser && tic.creator.equals(currentUser._id)){ %> 
                 <div class="card-footer d-flex border-top-0 align-items-center justify-content-around mt-0">
                     
-                    <a type="button" id="editBtn" href="/investments/<%= tic._id %>/edit" class="btn btn-info btn-sm">Edit</a>
+                    <a type="button" id="editBtn" href="/investments/<%= tic._id %>/edit" class="btn btn-outline-info btn-sm">Edit</a>
                         <form action="/investments/<%= tic._id %>?_method=DELETE" method="POST" class="d-inline-flex justify-content-end ">
-                            <button class="btn btn-danger btn-sm" aria-label="Delete">Delete</button>
+                            <button class="btn btn-outline-danger btn-sm" aria-label="Delete">Delete</button>
                         </form>
-                        <a href="/investments/home" class="btn btn-success btn-sm">My investments</a>
+                        <a href="/investments/home" class="btn btn-outline-warning btn-sm">My investments</a>
                 </div>
                 <% } %> 
                 
@@ -50,7 +50,7 @@
 
             <% if(!currentUser) {%> 
                 
-                <h3><a href="/login" class="text-success"> Login to leave a review</a></h3>
+                <h3><a href="/login" class="text-warning"> Login to leave a review</a></h3>
                 <p class="starability-result" data-rating="3">
                   Rated: 3 stars
                 </p>
@@ -60,7 +60,7 @@
         <% } %> 
         <% if(currentUser) {%> 
         <aside class="col-6 mt-3">
-            <h3>Leave A Review</h3>
+            <h3 class="text-warning">Leave A Review</h3>
             <form action="/investments/<%= ticker._id %>/reviews" method="PUT">
             <div class="mb-0">  
                 <fieldset class="starability-basic">
@@ -79,12 +79,12 @@
             </div>
             <div class="mb-3">
                 <label for="body" class="form-label"></label>
-                <textarea class="form-control text-muted" name="review[body]" id="body" cols="30" rows="5">Review Text</textarea>
+                <textarea class="form-control text-warning bg-transparent border-warning" name="review[body]" id="body" cols="30" rows="5">Review Text</textarea>
                 <div class="valid-feedback">
                     Looks Good!
                 </div>
             </div>
-            <button disabled="disabled"class="btn btn-success">Submit</button>
+            <button disabled="disabled"class="btn btn-outline-warning">Coming Soon</button>
             </form>
         </aside>
         <% } %> 

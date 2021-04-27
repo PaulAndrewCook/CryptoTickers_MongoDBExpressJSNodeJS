@@ -1,3 +1,5 @@
+/* CSS for updating autoUpdate button in navbar and controlling display text */
+
 .static.btn::before {
     color:white;
     content:"Tickers: Static";

@@ -1,4 +1,4 @@
-/*the loadSymbols takes the hidden market symbol values,
+/*loadSymbols takes the hidden market symbol values,
     and loads them into the form when the select input is clicked:*/
 
 function loadSymbols() {

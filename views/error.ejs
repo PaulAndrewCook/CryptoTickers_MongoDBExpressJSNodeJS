@@ -31,9 +31,9 @@
       <div class="alert-body text-warning alert" role="alert" aria-live="assertive" aria-atomic="true">
       
         <h1>Ooof - Something went wrong!</h1>
-        <h2 class="alert-heading text-danger text- my-5"><%= `>>    ${err.message}   <<`%> </h2> 
+        <% if(currentUser && (currentUser.isAdmin)){%> <h2 class="alert-heading text-danger text- my-5"><%= `>>    ${err.message}   <<`%> <% } %> </h2> 
         <p class="lead">Please go back, try again, and report any ongoing errors.</p>
-        <a href="/investments" class="btn btn-lg btn-secondary font-weight-bold border-white bg-white">View
+        <a href="/investments" class="btn btn-lg btn-warning font-weight-bold">View
             Tickers</a>
     </div> 
     </main>

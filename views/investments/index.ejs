@@ -7,14 +7,14 @@
         <% for( let tic of ticker) { %> 
             <% if(tic != null ){ %> 
             <div class="col-sm-6 col-lg-4 col-xl-3">
-                <div class="card mb-3" id="<%=tic._id %>">
+                <div class="card border-warning  mb-3" id="<%=tic._id %>">
                     <% if(currentUser && tic.creator.equals(currentUser._id)){%> 
                         <form action="/investments/<%= tic._id %>?_method=DELETE" method="POST" class="d-flex justify-content-end">
-                            <button class="btn btn-close btn-close-black bg-white py-0 xButton" aria-label="Delete"><span aria-hidden="true">&times;</span></button>
+                            <button class="btn btn-close btn-close-white py-0 xButton" aria-label="Delete"><span aria-hidden="true">&times;</span></button>
                         </form>
                         <% } %> 
                         <img src="" alt="" class="img-fluid">
-                        <div class="card-body py-0">
+                        <div class="card-body text-warning py-0">
                             <h3 class="card-title text-center symbol"><%= tic.symbol %> </h3>
                             <div class="d-flex justify-content-around">
                                 <h5 class="card-text text-left" id="<%=tic._id %>_last">$<%= tic.last.toFixed(2)%></h5>
@@ -29,11 +29,11 @@
                                 </p>
                                 <% if(tic.datetime){ %> 
                                     <p class="d-flex justify-content-center flex-nowrap m-0 p-0">
-                                        <bold class="text-muted" id="<%=tic._id %>_time"> Reported: <span class="text-info"><%= (tic.time) %> </span></bold> 
+                                        <bold class="text-warning" id="<%=tic._id %>_time"> Reported: <span class="text-info"><%= (tic.time) %> </span></bold> 
                                     </p>
                                     <% } else { %> 
                                         <p class="d-flex justify-content-center flex-nowrap m-0 p-0">
-                                            <bold class="text-muted" id="<%=tic._id %>_time"> <span class="text-info">Market Error</span></bold> 
+                                            <bold class="text-muted" id="<%=tic._id %>_time"> <span class="text-bold">Market Error</span></bold> 
                                         </p>
                                         <% } %> 
                                         <a type="button hidden" class="stretched-link" href="/investments/<%= tic._id %>"></a> 
@@ -44,9 +44,9 @@
                                             <small class="text-muted mx-2"><%= (tic.date) %> </small>
                                             <% } %> 
                                             <% if(currentUser && tic.creator.equals(currentUser._id)){%> 
-                                                <a type="button" id="editBtn" href="/investments/<%= tic._id %>/edit" class="btn btn-light text-danger btn-sm">Edit</a>
+                                                <a type="button" id="editBtn" href="/investments/<%= tic._id %>/edit" class="btn text-warning btn-sm">Edit</a>
                                                 <% } else { %> 
-                                                    <a type="button" id="editBtn" href="/investments/home" class="btn btn-light btn-sm">Personalize</a>
+                                                    <a type="button" id="editBtn" href="/investments/home" class="btn btn-outline-secondary btn-sm">Personalize</a>
                                                     <% } %> 
                                                     
                                                 </div>
@@ -57,19 +57,19 @@
                                         <% } %> 
                                         <% } else { %>
                                             <div class="col-sm-6">
-                                                <div class="card text-center">
-                                                    <div class="card-body">
+                                                <div class="card border-warning text-center mt-4">
+                                                    <div class="card-body text-warning">
                                                         <h3 class="card-title">No Tickers To Load</h3>
                                                         <h5 class="card-text">You don't have any personalize tickers, yet.</h5>
                                                         <div class="d-flex flex-row mt-4 justif-content-around">
                                                             <div class="col-sm-6">
-                                                                <a type="button" class="btn btn-info btn-lg" type="submit" href="/investments/new">Make Your Own</a>
+                                                                <a type="button" class="btn btn-outline-info btn-lg" type="submit" href="/investments/new">Make Your Own</a>
                                                             </div>
                                                             
                                                             <div class="col-sm-6">
                                                                 <form action="/investments/home"  method="POST">
                                                                     <input type="hidden" name="loadDefault" id="loadDefault" value=true> 
-                                                                    <button class="btn btn-primary btn-lg" aria-label="resubmit">Load Default</button>
+                                                                    <button class="btn btn-outline-primary btn-lg" aria-label="resubmit">Load Default</button>
                                                                 </form>
                                                                 <br>
                                                             </div>

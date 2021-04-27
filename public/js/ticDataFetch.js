@@ -1,9 +1,9 @@
 const User = require.main.require('./models/user'); //user model
 const Ticker = require.main.require('./models/stocks'); //Ticker Model
 const Markets = require.main.require('./models/markets.js'); //markets Model
-const ccxt = require('ccxt'); //crypto api
-const { DateTime } = require('luxon');
-const { boolean } = require('joi');
+const ccxt = require('ccxt'); //crypto api - create all tic data
+const { DateTime } = require('luxon'); //convert date and time of tic into usable info
+const { boolean } = require('joi'); //link the models via joi model
 
 //create the new tickers, push them into array, save id to user, and return object with both single and array tics
 module.exports.makeTics = async (userId, baseTics) => {
@@ -81,6 +81,7 @@ module.exports.updateTickers = async (ticker) => {
 	//make sure the promise ticker has the right dimensions
 	ticker = ticker.flat(1);
 
+	//can this be moved to seperate fn to only be called once per user?
 	const exchange = ticker.map((tic) => {
 		return tic.crypto
 			? new ccxt[tic.exchange]({
@@ -88,6 +89,8 @@ module.exports.updateTickers = async (ticker) => {
 				})
 			: new ccxt[exc]();
 	});
+
+	//this is were magic happens - exchange data into tic model and save
 	const tickers = await awaitAll(exchange, ticker, fetchTic)
 		.then((tickers) => {
 			for (let i = 0; i < tickers.length; i++) {
@@ -120,6 +123,7 @@ module.exports.updateTickers = async (ticker) => {
 			tickers
 		];
 	}
+	//trying to catch errors if tics are not made - does not work though
 	if (ticker.length != tickers.length) {
 		const { redtics, deletedTics } = checkTics(tickers);
 		tickers = redtics;
@@ -127,6 +131,8 @@ module.exports.updateTickers = async (ticker) => {
 
 	return tickers;
 };
+
+//variable length promise call holder
 async function awaitAll(list, item, asyncFn) {
 	const promises = [];
 	for (let i = 0; i < list.length; i++) {
@@ -135,6 +141,7 @@ async function awaitAll(list, item, asyncFn) {
 	return Promise.all(promises);
 }
 
+//get current tic data from exchange
 async function fetchTic(exchange, ticker) {
 	try {
 		let market = { exchange: ticker.exchange };
@@ -146,7 +153,7 @@ async function fetchTic(exchange, ticker) {
 	}
 }
 
-//still not updating properly
+//save tics into model Ticker
 async function saveTics(tickerObj) {
 	try {
 		var ticker = [];
@@ -170,6 +177,7 @@ async function saveTics(tickerObj) {
 	}
 }
 
+//try and remove tics that were not properly made as they break app
 async function checkTics(tickers) {
 	const deletedTics = [];
 	for (let i = 0; i < tickers.length; i++) {
@@ -180,6 +188,8 @@ async function checkTics(tickers) {
 	return { tickers, deletedTics };
 }
 
+//get market data from Market model
+//This probably is not being used
 module.exports.loadMarkets = async (exchange) => {
 	for await (ex of exchange) {
 		let loadMar = ex.load_markets();

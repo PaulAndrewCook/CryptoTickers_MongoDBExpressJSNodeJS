@@ -1,10 +1,9 @@
 <% layout('layouts/boilerplate') %> 
 <link rel="stylesheet" href="/stylesheets/autocomplete.css">
-<div class="row text-center ">
+<div class="row text-center">
     <div class="col-sm-8 col-md-6 mx-auto">
-        <h1 class="my-4 mx-auto">New Investment</h1>
-        <h3>Common Cryptocurrencies</h3>
-        <div class="flex-col-6 d-flex flex-wrap justify-content-between comCoin">
+        <h1 class="my-4 mx-auto text-warning">Common Cryptocurrencies</h1>
+        <div class="flex-col-6 d-flex flex-wrap text-warning justify-content-between comCoin">
       </div> 
         <form action="/investments/new" method="POST" class="validate-form" autocomplete="off" novalidate>
             <div class="mb-4 mt-3">
@@ -27,7 +26,7 @@
                         <div class="input-group-prepend">
                           <label class="input-group-text" for="currency">Crypto Currencies</label>
                         </div>
-                            <input type="text" class="custom-select bg-white" autocomplete="off" name="currency[symbol]" id="currency" required placeholder="Type to choose from list...">
+                            <input type="text" class="custom-select bg-white text-dark" autocomplete="off" name="currency[symbol]" id="currency" required placeholder="Start typing to choose from list...">
                     </div>
                         <div class="valid-feedback">
                             Looks Good!
@@ -36,7 +35,7 @@
                     <input type="hidden" name="currency[crypto]" id="crypto" value=true> 
 
                 <div class="mt-2">
-                    <button class="btn btn-success ">Add Currency</button>
+                    <button class="btn btn-outline-warning">Add Currency</button>
                 </div>
             </div>
        
@@ -46,7 +45,7 @@
     </div>
 </div>
 <div class="collapse">
-    <select type="hidden" class="custom-select" id="hideCurr" >
+    <select type="hidden" class="custom-select text-dark" id="hideCurr" >
         <%for(let mar of markets) {%> 
       <option value=<%= mar.exchange%>><%= mar.symbols %></option>
       <%} %> 

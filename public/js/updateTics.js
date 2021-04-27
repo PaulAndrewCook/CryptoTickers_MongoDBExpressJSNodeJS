@@ -1,19 +1,23 @@
+//is called via script in DOM of index / home ejs file
+//gets current tic data, axios api call to get updated data, updates DOM with new info
+//also updates the tic status button accordingly
+
 // var DateTime = luxon.DateTime;
+//global variables
 var tickerObj = [];
 var intervalId;
 var status = 'updating';
 
 //get the elements that need to be listened to or updated
 const update = document.querySelector('#autoUpdate');
+
 //check to see how long ago the tickers were updated
 //updates when greater than duration (min)
 const duration = 5;
 const updateDom = timeCheck(duration);
 
-// status = 'updating';
-// updateBtn();
-
-// var asdf = document.getElementById('updateScript').getAttribute('ticker');
+//eventlistener fires when DOM is ready
+//checks if tics need updating and responds
 document.addEventListener('DOMContentLoaded', async function() {
 	if (updateDom === true) {
 		getTicData()
@@ -58,6 +62,7 @@ function timeCheck(duration) {
 	}
 }
 
+//stop the auto updting (live feature)
 function stopUpdate() {
 	console.log('Please stop here');
 	clearInterval(intervalId);
@@ -65,6 +70,8 @@ function stopUpdate() {
 	updateBtn();
 }
 
+//parse in tickers sent from Node to DOM,
+//send tic data for update via axios api
 function getTicData() {
 	var tickers = JSON.parse(ticker);
 	const params = new URLSearchParams();
@@ -92,12 +99,13 @@ function getTicData() {
 	]);
 }
 
+//automatically update the tickers
 async function goLive() {
 	status = 'live';
 	intervalId = setInterval(getTicData, 10000);
 }
 
-//we can now grab the correct elements by serching within the selected div
+//update each ticker when we have new info
 async function domUpdate(tickers) {
 	try {
 		for (tic of tickers) {
@@ -109,8 +117,6 @@ async function domUpdate(tickers) {
 			change.innerText = `$${tic.change.toFixed(2)}`;
 
 			time.innerHTML = `Reported: <span class="text-info"> ${tic.time} </span>`;
-			// time.classList.add('text-info');
-			// time.classList.remove('text-muted');
 
 			updateBtn();
 			updateClr(change);
@@ -122,6 +128,7 @@ async function domUpdate(tickers) {
 	}
 }
 
+//manages the text and colors of update btn via classes and css rules
 function updateBtn() {
 	if (status === 'live') {
 		update.classList.remove('bg-warning', 'searching');
@@ -135,6 +142,7 @@ function updateBtn() {
 	}
 }
 
+//changes the color of the latest price
 function updateClr(tic) {
 	const value = parseFloat(tic.innerHTML.replace(/\$/g, ''));
 	if (value > 0) {

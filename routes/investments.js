@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express'); // back end web application framework for Node.js
 const router = express.Router({ mergeParams: true }); //call express router
 const wrapAsync = require('../utils/catchAsync'); //call the async wrapper to catch all errors
 const { isLoggedIn, isAuthor, validateInput, isAdmin } = require('../middleware'); //middleware that checks to see if user is logged in
@@ -35,4 +35,5 @@ router.get('/:id/edit', isLoggedIn, isAuthor, wrapAsync(investments.renderEditFo
 //Get the autoUpdate for the ticker
 router.get('/:id/autoupdate', isLoggedIn, isAdmin, wrapAsync(investments.autoUpdate));
 
+//export all the routes
 module.exports = router;

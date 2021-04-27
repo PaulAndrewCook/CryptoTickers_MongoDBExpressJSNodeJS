@@ -1,6 +1,7 @@
 const BaseJoi = require('joi');
 const sanitizeHtml = require('sanitize-html');
 
+//joi schema for linking models
 const extension = (joi) => ({
 	type     : 'string',
 	base     : joi.string(),
@@ -23,6 +24,7 @@ const extension = (joi) => ({
 
 const Joi = BaseJoi.extend(extension);
 
+//linking of models
 module.exports.investmentsSchema = Joi.object({
 	currency : Joi.object({
 		exchange : Joi.string().required().escapeHTML(),
