@@ -115,8 +115,11 @@ async function domUpdate(tickers) {
 			const time = document.getElementById(`${tic._id}_time`);
 			last.innerText = `$${tic.last.toFixed(2)}`;
 			change.innerText = `$${tic.change.toFixed(2)}`;
+			const localTime = new Date(tic.datetime);
+			console.log('localTime', tic.datetime, localTime);
 
-			time.innerHTML = `Reported: <span class="text-info"> ${tic.time} </span>`;
+			time.innerHTML = `Reported: <span class="text-info"> ${localTime} </span>`;
+			// time.innerHTML = `Reported: <span class="text-info"> ${tic.time} </span>`;
 
 			updateBtn();
 			updateClr(change);

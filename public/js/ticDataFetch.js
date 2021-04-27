@@ -91,6 +91,10 @@ module.exports.updateTickers = async (ticker) => {
 			: new ccxt[exc]();
 	});
 
+	// fetch('https://worldtimeapi.org/api/ip')
+	// 	.then((response) => response.json())
+	// 	.then((data) => console.log('worldtime api', data.dst, data.datetime));
+
 	//this is were magic happens - exchange data into tic model and save
 	const tickers = await awaitAll(exchange, ticker, fetchTic)
 		.then((tickers) => {
@@ -105,16 +109,16 @@ module.exports.updateTickers = async (ticker) => {
 					}
 				}
 				let { datetime } = tickers[i];
-				const lt = new Date();
-				console.log('local data?', lt.toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET));
-				let newoff = DateTime.local().offset;
-				let offset = -(new Date().getTimezoneOffset() / 60);
+				// const lt = new Date();
+				// console.log('local data?', lt, lt.toString());
+				// let newoff = DateTime.local();
+				// let offset = -(new Date().getTimezoneOffset() / 60);
 				let dt = DateTime.fromISO(datetime);
-				const tme = dt.plus({ minutes: newoff });
-				console.log('time into offset', offset, 'new offset', newoff);
-				console.log('time into dom', dt);
-				console.log('time into readable offset', tme.toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET));
-				console.log('time into readable no offset', dt.toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET));
+				// const tme = dt.plus({ minutes: newoff });
+				// console.log('time into offset', offset, 'new offset', newoff);
+				// console.log('time into dom', dt);
+				// console.log('time into readable offset', tme.toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET));
+				// console.log('time into readable no offset', dt.toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET));
 
 				let timeMerge = {
 					time : dt.toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET),
@@ -122,11 +126,11 @@ module.exports.updateTickers = async (ticker) => {
 				};
 				tickerObj[i] = { ...market, ...timeMerge, ...tickers[i] };
 			}
-			console.log('time tic in dom', tickerObj);
 			return tickerObj;
 		})
 		.then(async (tickerObj) => {
 			let tickers = await saveTics(tickerObj);
+			``;
 			return tickers;
 		});
 
