@@ -48,7 +48,6 @@ app.use(methodOverride('_method')); //enables sending to put routes via POST
 app.use(express.static(path.join(__dirname, 'public'))); //Public Directory - Error - validate forms says good when blocked
 
 const secret = process.env.SECRET || 'makearealsecretlater';
-const NODE_ICU_DATA = '$(pwd)/node_modules/full-icu'; //for luxon - datetime-> to get local timezone
 
 app.use(
 	session({

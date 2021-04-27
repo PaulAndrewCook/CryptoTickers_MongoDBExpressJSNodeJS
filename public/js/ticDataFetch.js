@@ -4,6 +4,7 @@ const Markets = require.main.require('./models/markets.js'); //markets Model
 const ccxt = require('ccxt'); //crypto api - create all tic data
 const { DateTime } = require('luxon'); //convert date and time of tic into usable info
 const { boolean } = require('joi'); //link the models via joi model
+const NODE_ICU_DATA = '(pwd)/node_modules/full-icu'; //for luxon - datetime-> to get local timezone
 
 //create the new tickers, push them into array, save id to user, and return object with both single and array tics
 module.exports.makeTics = async (userId, baseTics) => {
@@ -104,13 +105,21 @@ module.exports.updateTickers = async (ticker) => {
 					}
 				}
 				let { datetime } = tickers[i];
+				let offset = -(new Date().getTimezoneOffset() / 60);
 				let dt = DateTime.fromISO(datetime);
+				const tme = dt.plus({ hours: offset });
+				console.log('time into offset', offset, tme);
+				console.log('time into dom', dt);
+				console.log('time into readable offset', tme.toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET));
+				console.log('time into readable no offset', dt.toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET));
+
 				let timeMerge = {
 					time : dt.toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET),
 					date : dt.toLocaleString(DateTime.DATE_MED)
 				};
 				tickerObj[i] = { ...market, ...timeMerge, ...tickers[i] };
 			}
+			console.log('time tic in dom', tickerObj);
 			return tickerObj;
 		})
 		.then(async (tickerObj) => {
