@@ -105,10 +105,11 @@ module.exports.updateTickers = async (ticker) => {
 					}
 				}
 				let { datetime } = tickers[i];
+				let newoff = DateTime.local().offset;
 				let offset = -(new Date().getTimezoneOffset() / 60);
 				let dt = DateTime.fromISO(datetime);
-				const tme = dt.plus({ hours: offset });
-				console.log('time into offset', offset, tme);
+				const tme = dt.plus({ minutes: newoff });
+				console.log('time into offset', offset, 'new offset', newoff);
 				console.log('time into dom', dt);
 				console.log('time into readable offset', tme.toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET));
 				console.log('time into readable no offset', dt.toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET));
