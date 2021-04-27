@@ -1,10 +1,10 @@
 const User = require.main.require('./models/user'); //user model
 const Ticker = require.main.require('./models/stocks'); //Ticker Model
-const Markets = require.main.require('./models/markets.js'); //markets Model
+const Markets = require.main.require('./models/markets'); //markets Model
 const ccxt = require('ccxt'); //crypto api - create all tic data
 const { DateTime } = require('luxon'); //convert date and time of tic into usable info
 const { boolean } = require('joi'); //link the models via joi model
-const NODE_ICU_DATA = '(pwd)/node_modules/full-icu'; //for luxon - datetime-> to get local timezone
+const NODE_ICU_DATA = require('full-icu'); //for luxon - datetime-> to get local timezone
 
 //create the new tickers, push them into array, save id to user, and return object with both single and array tics
 module.exports.makeTics = async (userId, baseTics) => {
@@ -105,6 +105,8 @@ module.exports.updateTickers = async (ticker) => {
 					}
 				}
 				let { datetime } = tickers[i];
+				const lt = new Date();
+				console.log('local data?', lt.toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET));
 				let newoff = DateTime.local().offset;
 				let offset = -(new Date().getTimezoneOffset() / 60);
 				let dt = DateTime.fromISO(datetime);
