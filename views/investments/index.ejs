@@ -7,7 +7,7 @@
         <% for( let tic of ticker) { %> 
             <% if(tic != null ){ %> 
             <div class="col-sm-6 col-lg-4 col-xl-3">
-                <div class="card border-warning  mb-3" id="<%=tic._id %>">
+                <div class="card border-warning  mb-3 <% if(!tic.last){%> noData <%}%>" id="<%=tic._id%>">
                     <% if(currentUser && tic.creator.equals(currentUser._id)){%> 
                         <form action="/investments/<%= tic._id %>?_method=DELETE" method="POST" class="d-flex justify-content-end">
                             <button class="btn btn-close btn-close-white py-0 xButton" aria-label="Delete"><span aria-hidden="true">&times;</span></button>
@@ -15,17 +15,23 @@
                         <% } %> 
                         <img src="" alt="" class="img-fluid">
                         <div class="card-body text-warning py-0">
-                            <h3 class="card-title text-center symbol"><%= tic.symbol %> </h3>
+                           
+                            <h3 class="card-title text-center symbol"><% if(tic.symbol){ %> <%= tic.symbol %> <% } else { %> Exchagne Error <% } %>  </h3>
+                                
                             <div class="d-flex justify-content-around">
+                                <% if(tic.last){ %> 
                                 <h5 class="card-text text-left" id="<%=tic._id %>_last">$<%= tic.last.toFixed(2)%></h5>
                                 <h6 class="card-text text-right" id="<%=tic._id %>_change"> <small class="text-muted"> change: </small> $<%= tic.change.toFixed(2) %></h6>
-                                
+                                <%} else {%>
+                                    <h5 class="card-text text-center">No Data</h5>
+                                    
+                                     <% } %> 
                             </div>
                             <p class="card-text d-flex justify-content-around flex-md-wrap flex-lg-nowrap">
                                 <% if(tic.open){ %> 
                                     <small class="text-muted mx-2"> Open: $<%= tic.open.toFixed(2) %> </small> 
-                                    <% } %> 
                                     <small class="text-muted mx-2"> Last Close: $<%= tic.close.toFixed(2) %> </small>
+                                    <% } %> 
                                 </p>
                                 <% if(tic.datetime){ %> 
                                     <p class="d-flex justify-content-center flex-nowrap m-0 p-0">
@@ -87,7 +93,8 @@
                                         <script type="text/javascript">
                                             var ticker = '<%- JSON.stringify(ticker) %>'; 
                                             var DateTime = luxon.DateTime;
-                                        </script>                                      
+                                        </script>   
+                
 
                                         <script src="/js/updateTics.js" type="text/javascript" id="updateScript" data-url="ticker">
                                         </script>

@@ -66,6 +66,11 @@ button.navbar-toggler:focus {
     border-bottom-color: gray ;
 }
 
+.noData, .noData:hover{
+    background-color: rgba(218, 20, 20, 0.671);
+}
+
+
 @media (max-width: 600px) {
     .navbar-brand {
         left: 25%;

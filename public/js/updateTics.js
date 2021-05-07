@@ -114,8 +114,10 @@ async function domUpdate(tickers) {
 			const change = document.getElementById(`${tic._id}_change`);
 			const time = document.getElementById(`${tic._id}_time`);
 			const date = document.getElementById(`${tic._id}_date`);
-			last.innerText = `$${tic.last.toFixed(2)}`;
-			change.innerHTML = `<small class="text-muted"> change: </small>$${tic.change.toFixed(2)}`;
+			if (last) {
+				last.innerText = `$${tic.last.toFixed(2)}`;
+				change.innerHTML = `<small class="text-muted"> change: </small>$${tic.change.toFixed(2)}`;
+			}
 			let dt = DateTime.fromISO(tic.datetime);
 			let nt = dt.toLocaleString(DateTime.TIME_WITH_SHORT_OFFSET);
 			let cldt = dt.toLocaleString(DateTime.DATE_MED);
@@ -150,15 +152,17 @@ function updateBtn() {
 
 //changes the color of the latest price
 function updateClr(tic) {
-	const value = parseFloat(tic.innerText.replace(/.*\$/g, ''));
-	if (value > 0) {
-		tic.classList.remove('loss');
-		tic.classList.add('gain');
-	} else if (value < 0) {
-		tic.classList.remove('gain');
-		tic.classList.add('loss');
-	} else {
-		tic.classList.remove('gain');
-		tic.classList.remove('loss');
+	if (tic) {
+		const value = parseFloat(tic.innerText.replace(/.*\$/g, ''));
+		if (value > 0) {
+			tic.classList.remove('loss');
+			tic.classList.add('gain');
+		} else if (value < 0) {
+			tic.classList.remove('gain');
+			tic.classList.add('loss');
+		} else {
+			tic.classList.remove('gain');
+			tic.classList.remove('loss');
+		}
 	}
 }

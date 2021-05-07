@@ -83,6 +83,7 @@ module.exports.createNewTicker = async (req, res) => {
 	];
 	const userId = req.user._id;
 	const { ticker } = await makeTics(userId, currency);
+
 	req.flash('success', 'Successfully made a new ticker!');
 	res.redirect(`/investments/${ticker._id}`);
 };
@@ -93,6 +94,7 @@ module.exports.showTicker = async (req, res, next) => {
 	const tickers = await Ticker.findById(req.params.id); //needs reveiws to work to populate reviews
 
 	const ticker = await updateTickers(tickers);
+
 	if (!ticker) {
 		req.flash('error', 'Ticker Not Found!');
 		return res.redirect('/investments');

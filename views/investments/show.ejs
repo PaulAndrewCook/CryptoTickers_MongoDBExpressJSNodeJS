@@ -3,21 +3,32 @@
 
 <div class="row d-flex justify-content-around align-items-center h-100">
     <% for( let tic of ticker) { %> 
+        <% if(!tic.last){ %>
+            <div class="col-10 text-center bg-danger rounded m-4">
+                <h3>Warning!</h3>
+                <h5 class="text-dark"><%=tic.exchange%> is not reporting data for <%=tic.symbol%>   </h5>
+                <h6 class="text-dark"> Delete this ticker and choose another exchange<br> or wait to see if it comes back online.</h6>
+            </div>
+            <% } %> 
         <div class="col-sm-6 col-md-4">
             <div class="card text-center border-warning text-warning mb-3 mt-5">
                 <img src="" alt="" class="img-fluid">
-                <div class="card-body pb-1">
-                    <h3 class="card-title "><%= tic.symbol %> </h3>
+                <div class="card-body text-warning py-0">
+                    <h3 class="card-title text-center symbol"><% if(tic.symbol){ %> <%= tic.symbol %> <% } else { %> Exchagne Error <% } %>  </h3>
                     <div class="d-flex justify-content-around">
-                        <h5 class="card-text text-left">$<%= tic.last.toFixed(2) %></h5>
-                        <h6 class="card-text text-right">$<%= tic.change.toFixed(2) %></h6>
+                        <% if(tic.last){ %> 
+                        <h5 class="card-text text-left" id="<%=tic._id %>_last">$<%= tic.last.toFixed(2)%></h5>
+                        <h6 class="card-text text-right" id="<%=tic._id %>_change"> <small class="text-muted"> change: </small> $<%= tic.change.toFixed(2) %></h6>
+                        <%} else {%>
+                            <h5 class="card-text text-center">No Data</h5>
+                             <% } %> 
                     </div>
                     <p class="card-text d-flex justify-content-around flex-md-wrap flex-lg-nowrap">
                         <% if(tic.open){ %> 
-                        <small class="text-muted mx-2"> Open: $<%= tic.open.toFixed(2) %> </small> 
-                        <% } %> 
-                        <small class="text-muted mx-2"> Last Close: $<%= tic.close.toFixed(2) %> </small>
-                    </p>
+                            <small class="text-muted mx-2"> Open: $<%= tic.open.toFixed(2) %> </small> 
+                            <small class="text-muted mx-2"> Last Close: $<%= tic.close.toFixed(2) %> </small>
+                            <% } %> 
+                        </p>
                     <% if(tic.datetime){ %> 
                     <p class="d-flex justify-content-center flex-nowrap m-0 p-0">
                         <bold class="text-muted" id="<%=tic._id %>_time"> Reported: <span class="text-info"><%= (tic.time) %> </span></bold> 
@@ -48,9 +59,10 @@
                 
             </div>
 
+
             <% if(!currentUser) {%> 
                 
-                <h3><a href="/login" class="text-warning"> Login to leave a review</a></h3>
+                <h4><a href="/login" class="text-warning"> Login to leave a review</a></h4>
                 <p class="starability-result" data-rating="3">
                   Rated: 3 stars
                 </p>
@@ -60,7 +72,7 @@
         <% } %> 
         <% if(currentUser) {%> 
         <aside class="col-6 mt-3">
-            <h3 class="text-warning">Leave A Review</h3>
+            <h4 class="text-warning">Leave A Review</h4>
             <form action="/investments/<%= ticker._id %>/reviews" method="PUT">
             <div class="mb-0">  
                 <fieldset class="starability-basic">
