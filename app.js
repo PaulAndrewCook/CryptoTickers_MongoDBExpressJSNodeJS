@@ -154,7 +154,8 @@ app.use('/', userRoutes); //use the user routes
 
 //home page route
 app.get('/', (req, res) => {
-	res.render('home');
+	// res.render('home') //Bypass to ease user experience
+	res.redirect('/investments');
 });
 
 //error handling wrapper for each of the routes
